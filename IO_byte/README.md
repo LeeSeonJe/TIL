@@ -14,11 +14,11 @@
 >>>> - 하위 클래스 : XXXOutputStream
 
 >> #### FileOutputStream // 파일을 저장 및 생성하자.
->> ```
+```
 public void fileSave() {
 		FileOutputStream fos = new FileOutputStream("exam02_byte.txt");
 	}
->> ```
+```
 
 >>
 - 매개변수의 파일에 값을 저장한다. **단, 파일이 없을 시 생성시킨다.**
@@ -28,9 +28,9 @@ public void fileSave() {
 - FileOutputStream 코드를 살펴보자
 - (Ctrl + 클릭)을 사용해서 확인해준다.
 
->> ```
+```
 public FileOutputStream(String name) throws FileNotFoundException
->> ```
+```
 
 >>
 - throws FileNotFoundException 예외처리를 던지고 있다.
@@ -87,7 +87,7 @@ public void write(int b) throws IOException {
 - IOException 예외처리를 던지는 것을 볼 수 있다.
 - 마우스를 호버하여 try~catch문을 처리하지 말고 FileNotFoundException 밑에다 직접 써서 해주자. 중첩 try문이 되므로 그렇다.
 
->>```
+```
 public void fileSave() {
 		try {
 			FileOutputStream fos = new FileOutputStream("exam02_byte.txt");
@@ -105,7 +105,7 @@ public void fileSave() {
 >>
 - 다음은 byte 배열을 하나 생성해서 저장해보도록 하자.
 
->> ```
+```
 public void fileSave() {
 		try {
 			FileOutputStream fos = new FileOutputStream("exam02_byte.txt");	
@@ -120,7 +120,7 @@ public void fileSave() {
 			e.printStackTrace();
 		}
 	}
->> ```
+```
 
 >>
 - 저장된 값을 확인해 보자. 

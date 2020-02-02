@@ -117,17 +117,115 @@ public void fileSave() {
 	- 저장된 값을 확인해 보자. 
 	- 프로젝트 우클릭 > refresh를 해주면 파일이 생성되어 있을 것이다.
 	- 여러번 실행하면 덮어쓰기때문에 계속해서 값이 같을 것이며 *파일명 뒤에 true를 붙여주면 이어서 붙여질 것*이다.
->>
+
 +
-	+ 생성된 파일을 보자.
+	+ 마지막으로 사용한 fos를 스트림을 닫아줘야한다.
+	+ 스트림이 많으면 코드가 꼬일 수 있으므로 닫아주는 것을 생활화하자.
+	+ **finally** 코드를 작성하여 close해주도록 하자.
+
+```
+public void fileSave() {
+		try {
+			FileOutputStream fos = new FileOutputStream("exam02_byte.txt");
+			// int 값 저장
+			fos.write(97);
+			
+			// byte 배열 생성
+			byte[] b = new byte[] { 'a', 'b', 'c', 'd', 'e' };
+			// 배열 전체 저장
+			fos.write(b);
+			
+			// 배열 인덱스 범위 저장
+			fos.write(b, 1, 3);
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			fos.close();
+		}
+	}
+```
+
++
+	+ fos를 try문에 만들었지때문에 finally 안에 fos는 읽을 수 없으므로 밖으로 빼주도록 하자
+
+```
+public void fileSave() {
+		FileOutputStream fos = null;
+		try {
+			fos = new FileOutputStream("exam02_byte.txt");
+			// int 값 저장
+			fos.write(97);
+			
+			// byte 배열 생성
+			byte[] b = new byte[] { 'a', 'b', 'c', 'd', 'e' };
+			// 배열 전체 저장
+			fos.write(b);
+			
+			// 배열 인덱스 범위 저장
+			fos.write(b, 1, 3);
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			fos.close();
+		}
+	}
+```
+
++
+	+ 빼주고 나면 close() 또한 Unhandled exception type IOException 예외처리를 던진다.
+	+ 예외처리 해주도록 하자.
+
+```
+public void fileSave() {
+		FileOutputStream fos = null;
+		try {
+			fos = new FileOutputStream("exam02_byte.txt");
+			// int 값 저장
+			fos.write(97);
+			
+			// byte 배열 생성
+			byte[] b = new byte[] { 'a', 'b', 'c', 'd', 'e' };
+			// 배열 전체 저장
+			fos.write(b);
+			
+			// 배열 인덱스 범위 저장
+			fos.write(b, 1, 3);
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				fos.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+```
+
++	
+	+ finally는 try, catch 부분과 상관없이 무조건 실행시키는 문장이므로 close()를 finally 안에 넣어준 것이다.
+>>
+
++
+	+ 마지막으로 생성된 파일을 보자.
 	+ aabcdebcd 이렇게 저장이 되어 있을 것이다.
 		+ a : 첫번째 int 97값
 		+ abcde : 배열 전체의 저장 값
 		+ bcd : 배열 인덱스 범위의 저장 값
 	+ 잘 저장되는 것을 확인했다. 이제 파일을 열어보자.
-	
-	
-
 #### FileInputStream // 파일을 받아오자.
 
 ```

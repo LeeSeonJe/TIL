@@ -36,7 +36,7 @@ public FileOutputStream(String name) throws FileNotFoundException
 - throws FileNotFoundException 예외처리를 던지고 있다.
 - try~catch문을 사용하여 예외처리를 해주자.
 
->> ```
+```
 public void fileSave() {
 		try {
 			FileOutputStream fos = new FileOutputStream("exam02_byte.txt");
@@ -45,7 +45,7 @@ public void fileSave() {
 			e.printStackTrace();
 		}
 	}
->> ```
+```
 
 >> 
 - 마우스를 호버하면 자동으로 try~catch문을 작성해준다.
@@ -62,7 +62,7 @@ public void fileSave() {
 - **write(int b)** : 정수 값 하나를 저장한다.
 - 하나씩 저장해보자.
 
->> ```
+```
 public void fileSave() {
 		try {
 			FileOutputStream fos = new FileOutputStream("exam02_byte.txt");
@@ -73,15 +73,15 @@ public void fileSave() {
 			e.printStackTrace();
 		}
 	}
->> ```
+```
 
 >>
 - write(int b) : 값을 넣었을 때 Unhandled exception type IOException 예외처리를 해주라는 메세지가 나온다.
 - write() 안에 들어가서 소스를 살펴보자
 
->>```
+```
 public void write(int b) throws IOException {
->> ```
+```
 
 >>
 - IOException 예외처리를 던지는 것을 볼 수 있다.
@@ -100,12 +100,12 @@ public void fileSave() {
 			e.printStackTrace();
 		}
 	}
->> ```
+```
 
 >>
 - 다음은 byte 배열을 하나 생성해서 저장해보도록 하자.
 
->>```
+>> ```
 public void fileSave() {
 		try {
 			FileOutputStream fos = new FileOutputStream("exam02_byte.txt");	

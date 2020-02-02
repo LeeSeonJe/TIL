@@ -5,7 +5,7 @@
 
 >>> - 입력 스트림 
 
->> - 최상위 클래스 : InputStream
+>>>> - 최상위 클래스 : InputStream
 >>>> - 하위 클래스 : XXXInputStream
 
 >>> - 출력 스트림

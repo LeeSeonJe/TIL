@@ -18,6 +18,7 @@
 public void fileSave() {
 		FileOutputStream fos = new FileOutputStream("exam02_byte.txt");
 	}
+>> ```
 
 >>
 - 매개변수의 파일에 값을 저장한다. **단, 파일이 없을 시 생성시킨다.**
@@ -29,6 +30,7 @@ public void fileSave() {
 
 >> ```
 public FileOutputStream(String name) throws FileNotFoundException
+>> ```
 
 >>
 - throws FileNotFoundException 예외처리를 던지고 있다.
@@ -43,7 +45,8 @@ public void fileSave() {
 			e.printStackTrace();
 		}
 	}
-	
+>> ```
+
 >> 
 - 마우스를 호버하면 자동으로 try~catch문을 작성해준다.
 - API - FileOutputStream - Constructors 부분을 보면 **FileOutputStream(File file, boolean append)** 뒤에 boolean append가 붙는 Constructors이 존재한다.
@@ -70,13 +73,15 @@ public void fileSave() {
 			e.printStackTrace();
 		}
 	}
-	
+>> ```
+
 >>
 - write(int b) : 값을 넣었을 때 Unhandled exception type IOException 예외처리를 해주라는 메세지가 나온다.
 - write() 안에 들어가서 소스를 살펴보자
 
 >>```
 public void write(int b) throws IOException {
+>> ```
 
 >>
 - IOException 예외처리를 던지는 것을 볼 수 있다.
@@ -95,7 +100,8 @@ public void fileSave() {
 			e.printStackTrace();
 		}
 	}
-	
+>> ```
+
 >>
 - 다음은 byte 배열을 하나 생성해서 저장해보도록 하자.
 
@@ -114,7 +120,8 @@ public void fileSave() {
 			e.printStackTrace();
 		}
 	}
-	
+>> ```
+
 >>
 - 저장된 값을 확인해 보자. 
 - 프로젝트 우클릭 > refresh를 해주면 파일이 생성되어 있을 것이다.

@@ -10,7 +10,7 @@
 		- 하위 클래스 : XXXOutputStream
 
 
-#### FileOutputStream // 파일을 저장 및 생성하자.
+### FileOutputStream // 파일을 저장 및 생성하자.
 
 ```
 public void fileSave() {
@@ -226,7 +226,9 @@ public void fileSave() {
 		+ abcde : 배열 전체의 저장 값
 		+ bcd : 배열 인덱스 범위의 저장 값
 	+ 잘 저장되는 것을 확인했다. 이제 파일을 열어보자.
-#### FileInputStream // 파일을 받아오자.
+
+
+### FileInputStream // 파일을 받아오자.
 
 ```
 public void fileOpen() {
@@ -263,3 +265,78 @@ public class ByteDAO {
 
 +
 	- 마우스를 호버하면 자동으로 try~catch문을 작성해준다.
+	+ 미리 fis를 try밖에 선언해주고 finally를 만들어 주자.
+
+```
+public void fileOpen() {
+		FileInputStream fis  = null;
+		try {
+			fis = new FileInputStream("exam02_byte.txt");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				fis.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+```
++
+	+ 이제 값을 받아오자
+	+ 값을 받아오는 방법은 read() 메소드를 사용한다.
+	+ API를 살펴보자.
+		+ read() : byte 하나를 읽는다
+		+ read(byte[] b) : byte 배열에 저장한다. for문을 사용해서 출력하면 저장되어있는걸 확인 할 수 있다.
+		+ read(byte[] b, int off, int len) : byte 배열에 인덱스 범위를 저장한다. 
+	
+```
+public void fileOpen() {
+		FileInputStream fis = null;
+		try {
+			fis = new FileInputStream("exam02_byte.txt");
+			// byte 단위 하나를 읽어옴
+			int value = 0;
+			while ((value = fis.read()) != -1) {
+				System.out.print((char) value + " ");
+			}
+
+//			
+//			byte[] b1 = new byte[10];
+//			fis.read(b1);
+//			fis.read(b1, 0, 4);
+//			
+//			for(int a : b1) {
+//				System.out.println(a);
+//			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				fis.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+```
+
++
+	+ read()를 사용하면 모두 byte단위인 정수로 가져오기 때문에 int value 에 저장하고 형변환을 해주자.
+	+ **일회성** 이기 때문에 값을 저장하지 않으면 바로 다음 값으로 넘어가게 된다. 그래서 value 값을 만들어 저장해주자.
+	+ **또한 위에서 한번 다 읽고 다시 밑에서 읽을려면 이미 읽었기 때문에 값이 없다는점 유의하자**
+	+ 주석 부분인 배열부분을 만들고 아무리 가져와도 값을 이미 위에서 다 출력하여 밑에는 저장되지 않는다.
+	
+>
++
+	+ 콘솔창을 확인하여 출력된 값을 보자.
+	+ a a b c d e b c d 이렇게 출력된 것을 볼 수 있다.
+	+ 값을 하나하나 가져오기 때문에 한번에 가져오고 싶다.
+	+ 이건 보조스트림을 하면서 해보자.

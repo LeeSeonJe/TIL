@@ -1,6 +1,6 @@
-package com.sj.exam01.flie.run;
+package com.sj.exam01_flie.run;
 
-import com.sj.exam01.flie.model.dao.FileController;
+import com.sj.exam01_flie.model.dao.FileController;
 
 public class Run {
 	public static void main(String[] args) {

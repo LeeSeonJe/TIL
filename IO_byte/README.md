@@ -1,7 +1,7 @@
 # byteDAO
 ## - IO_byte Summary
 
-*- 바이트 기반 스트림
+* - 바이트 기반 스트림
 - 입력 스트림 
 - 최상위 클래스 : InputStream
 - 하위 클래스 : XXXInputStream

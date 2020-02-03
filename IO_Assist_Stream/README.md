@@ -624,7 +624,7 @@ public class Book implements Serializable {
 	+ 이제는 아주 쉽고 빠르게 만들 수 있다. ㅎㅎ
 	+ 이제 object.dat파일을 읽어보자
 	+ 읽어오는 메소드 readObject()를 사용해보자. 그전에 API를 살펴보자.
-	+ 여러가지 read()메소드가 있다. 우리는 객체를 받아올 것이기 떄문에 readObject()를 사용하면 될 것 같다. 반환값은 object이다.
+	+ 여러가지 read()메소드가 있다. 우리는 객체를 받아올 것이기 때문에 readObject()를 사용하면 될 것 같다. 반환값은 object이다.
 
 >
 

@@ -124,5 +124,112 @@ public void fileSave() {
 	
 	
 ### FileWriter // // 파일을 받아(읽어)오자.
+	
+```
+public void fileOpen() {
+		FileReader fr = new FileReader("exam03.txt");
+	}
+```
 
++
+	+ 매개변수의 파일을 읽어온다.
+	+ IO를 사용하기 위해서 **예외처리**를 해준다
+	+ FileReader 코드를 살펴보고 어떤 예외처리를 던지는지 확인해보자.
+	
+```
+public FileReader(String fileName) throws FileNotFoundException
+```
+
++	
+	+ throws FileNotFoundException 예외처리를 해주자
+	+ 또한 try-with-resource문으로 작성해보자.
+	
+```
+public void fileOpen() {
+		try (FileReader fr = new FileReader("exam03.txt");){
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+```
+
++
+	+ fr에 오류가 생길 것이다.
+	+ 오류를 확인해 보자.
+		+ Unhandled exception type IOException thrown by automatic close() invocation on fr 이라는 오류가 생겼다.
+		+ close()를 하기 위해서는 IOException을 해줘야하는데 우리는 FileNotFoundException만 catch해줘서 나오는 오류이다.
+		+ IOException을 catch문에 추가해주자.
+		
+```JAVA
+public void fileOpen() {
+		try (FileReader fr = new FileReader("exam03.txt");){
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+```
+
++
+	+ 모든 예외처리를 잡아주었다
+	+ 다음 파일의 값을 읽어와보자.
+	+ 읽어오기 위해서는 read()를 사용한다.
+>
+
++
+	+ read() 메소드를 API에서 확인해보자.
+	+ read() 메소드는 int 값을 반환하는 것을 알 수 있다.
+	+ 읽어온 값을 담아줄 value 값을 만들어주자
+	
+```
+public void fileOpen() {
+		try (FileReader fr = new FileReader("exam03.txt");){
+			int value = 0;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+```
+
++
+	+ 값을 읽어와보자
+
+```
+public void fileOpen() {
+		try (FileReader fr = new FileReader("exam03.txt");) {
+			int value = 0;
+			while ((value = fr.read()) != -1) {
+				System.out.print((char) value + " ");
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+```
+
++
+	+ read() 메소드는 **일회성**이기 때문에 값을 저장해줘야 한다.
+	+ 그리고 다음 값이 없을 때는 -1을 반환해주므로 while문 조건을 만들어 준다.
+	+ read()의 반환값은 int형 이므로 char형으로 **Casting**을 해준다.
+>
+
++	
+	+ 결과값을 확인해 보자
+	+ a b c d e b c d a T e s t T e F i l e R e a d e r : : : 한 글 을   사 랑 하 자 : : : 이 나오는걸 확인할 수 있다.
+	+ FileReader 또한 문자 하나하나씩 읽어오기 때문에 보조스트림을 사용해서 한번에 가져와야한다.
+	+ 보조스트림 부분에서 다시 알아보도록 하자...!
 	

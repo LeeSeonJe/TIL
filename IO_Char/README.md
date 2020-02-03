@@ -53,5 +53,72 @@ public void fileSave() {
 +
 	+ 출력하기 위헤서는 FileOutputStream과 같은 write()를 사용해준다.
 	+ write()메소드도 IOException을 예외처리 해줘야하는데 이미 FileWriter 때문에 처리해줬기 때문에 예외처리 에러가 뜨지 않는다.
-	+ 
+
+>
+
++
+	+ write()를 사용해보자.
+		+ write(char[] cbuf) : char 배열 전체를 저장한다.
+		+ write(char[] cbuf, int off, int len) : char 배열 인덱스 범위만큼 저장한다. **마지막 범위는 항상 포함하지 않는다.**
+		+ write(int c) : 정수 값 하나를 저장한다.
+		+ write(String str) : 문자열을 저장한다.
+		+ write(String str, int off, int len) : 문자열의 인덱스 범위만큼 저장한다. **마지막 범위는 항상 포함하지 않는다.**
+	
+```
+public void fileSave() {
+		try (FileWriter fr = new FileWriter("exam03.txt");) {
+			char[] ch = { 'a', 'b', 'c', 'd', 'e' };
+			// write(char[] cbuf)
+			fr.write(ch);
+			// write(char[] cbuf, int off, int len)
+			fr.write(ch, 2, 4);
+			// write(int c)
+			fr.write(97);
+			String str = "Test";
+			// write(String str)
+			fr.write(str);
+			// write(String str, int off, int len)
+			fr.write(str, 0, 2);
+			// write(String str)
+			fr.write("FileReader:::");
+			// write(String str)
+			fr.write("한글을 사랑하자:::");
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void fileOpen() {
+		try (FileReader fr = new FileReader("exam03.txt");) {
+			while (fr.read() != -1) {
+				System.out.println((char) fr.read());
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+```
+
++
+	+ 실행해보면 **exam03.txt** 파일이 만들어지는 것을 알 수 있다.
+	+ 파일이 존재하지 않기 때문에 자동으로 만들어진다.
+
+>
+
++
+	+ **exam03.txt** 파일을 열어보자.
+	+ abcdebcdaTestTeFileReader:::한글을 사랑하자::: 이런게 결과값이 생긴걸 볼 수 있다.
+		+ abcde 부분 : write(char[] cbuf)
+		+ bcd 부분 : // write(char[] cbuf, int off, int len)
+		+ a 부분 : write(int c)
+		+ Test 부분 : // write(String str)
+		+ Te 부분 : // write(String str, int off, int len)
+		+ FileReader::: 부분 : write(String str)
+		+ 한글을 사랑하자::: 부분 : write(String str)
+	+ 아주 잘 생성이 되었다. **다음은 파일을 읽어오자**
 	

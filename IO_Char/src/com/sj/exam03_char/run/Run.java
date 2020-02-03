@@ -6,5 +6,6 @@ public class Run {
 	public static void main(String[] args) {
 		CharDAO cd = new CharDAO();
 		cd.fileSave();
+		cd.fileOpen();
 	}
 }

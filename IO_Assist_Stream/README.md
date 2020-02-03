@@ -1,4 +1,4 @@
-# IO_Assist_Buffer
+# IO_Assist
 
 ### 보조스트림
 
@@ -31,7 +31,7 @@
 ### 직렬화와 역직렬화
 + 직렬화(Seralization)
 	+ Serializable 인터페이스를 implements 하여 구현
-	+ 객체 직렬화 시 private  필드를 포함한 모든 필드를 바이트로 변환
+	+ 객체 직렬화 시 private 필드를 포함한 모든 필드를 바이트로 변환
 	+ transient키워드를 사용한 필드는 직렬화에서 제외
 	
 + 역직렬화(Deserialization)
@@ -421,3 +421,176 @@
 	}
 ```
 
++
+	+ 순서를 지켜서 값을 가져왔다. 
+	+ 프로그램을 실행시켜보면 아주 잘 되는 것을 볼 수 있다.
+	+ 순서를 지키지 않으면 원하는 값이 나오지 않을 수 있다.
+	
+	
+### 객체 입출력
+> ## ObjectOutputStream
+
++
+	+ 객체를 출력하기 위한 보조스트림이다.
+	+ Book이라는 객체를 담을 클래스를 만들어보자.  
+		\- title : String  
+		\- price : int  
+		\+ Book()  
+		\+ Book(title:String, price:int)  
+		\+ getter() / setter()  
+		\+ toString() : public
+
+```JAVA
+public class Book {
+	private String title;
+	private int price;
+
+	public Book() {
+
+	}
+
+	public Book(String title, int price) {
+		this.title = title;
+		this.price = price;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return title + "(" + price + ")";
+	}
+}
+```
+
++
+	+ Book 클래스를 생성해주었다.
+	+ **객체를 보조스트림을 사용해서 값을 출력하기 위해서는 반드시 직렬화를 해야한다.**
+	+ Book 클래스에 **implements Serializable**을 해주자.
+	+ import도 꼭 해주자.
+
+```JAVA
+public class Book implements Serializable {
+
+		.............생략............
+		
+}
+```
+
++ 
+	+ Book에 노란 경고가 뜨는 것을 확인 할 수 있다.
+	+ 마우스를 호버해서 Add generated serial version ID를 눌러준다.
+	
+```JAVA
+public class Book implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4717924231109932122L;
+	
+		.............생략............
+		
+}
+```
+
++
+	+ serialVersionUID 필드를 추가해준다.
+	+ 직렬화한 클래스와 같은 클래스임을 알려주는 식별자 역할을 한다. 되도록 명시해주도록 하자.
+	
+```JAVA
+import java.io.Serializable;
+
+public class Book implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4717924231109932122L;
+	private String title;
+	private int price;
+
+	public Book() {
+
+	}
+
+	public Book(String title, int price) {
+		this.title = title;
+		this.price = price;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return title + "(" + price + ")";
+	}
+}
+```
+
++
+	+ Book 클래스를 만들었다.
+	+ 이제 저장을 해보자.
+	+ try-with-resource문과 예외처리까지 해주자.
+	
+```JAVA
+	public void objectStreamSave() {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("object.dat"));) {
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+```
+
++
+	+ 이제 출력을 해보자.
+	+ write()메소드를 사용해준다. 하지만 우리는 object를 출력해줘야 하기 때문에 writeObject()를 사용해서 값을 넘겨준다. 매개변수로는 object를 받아온다.
+	
+```JAVA
+	public void objectStreamSave() {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("object.dat"));) {
+			oos.writeObject(new Book("자바를 잡아라", 30000));
+			oos.writeObject(new Book("오라클 정복", 35000));
+			oos.writeObject(new Book("웹표준 2.0", 27500));
+			oos.writeObject(new Book("자바 Servlet/JSP", 28000));
+			oos.writeObject(new Book("ajax 사용법", 15000));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+```

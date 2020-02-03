@@ -1,4 +1,4 @@
-package com.sj.exam04_assist.model.vo;
+package com.sj.exam04_assist.model.DAO;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,7 +11,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
+
+import com.sj.exam04_assist.model.vo.Book;
 
 public class AssistDAO {
 	public void byteStringSave() {
@@ -104,7 +107,19 @@ public class AssistDAO {
 	}
 
 	public void objectStreamSave() {
-
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("object.dat"));) {
+			oos.writeObject(new Book("자바를 잡아라", 30000));
+			oos.writeObject(new Book("오라클 정복", 35000));
+			oos.writeObject(new Book("웹표준 2.0", 27500));
+			oos.writeObject(new Book("자바 Servlet/JSP", 28000));
+			oos.writeObject(new Book("ajax 사용법", 15000));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void objectStreamOpen() {

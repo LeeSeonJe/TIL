@@ -1,6 +1,6 @@
 package com.sj.exam04_assist.run;
 
-import com.sj.exam04_assist.model.vo.AssistDAO;
+import com.sj.exam04_assist.model.DAO.AssistDAO;
 
 public class Run {
 	public static void main(String[] args) {

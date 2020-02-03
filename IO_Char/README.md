@@ -11,7 +11,7 @@
 		
 ### FileReader // 파일을 저장 및 생성하자.
 
-```
+```JAVA
 public void fileSave() {
 		FileWriter fr = new FileWriter("exam03.txt");	
 	}
@@ -23,7 +23,7 @@ public void fileSave() {
 	+ FileWriter 코드를 살펴보자.
 	+ (Ctrl + 클릭)을 사용해서 확인해준다.
 
-```
+```JAVA
 public FileWriter(String fileName) throws IOException
 ```
 +	
@@ -33,7 +33,7 @@ public FileWriter(String fileName) throws IOException
 	+ try-with-resource문 try**()** 괄호안에 스트림을 선언해 주는 것으로 우리가 항상 마지막에 finally에 스트림을 close() 해주는 부분을 자동으로 처리해준다.
 	+ 밑에 소스를 통해서 확인하자.
 	
-```
+```JAVA
 public void fileSave() {
 		try (FileWriter fr = new FileWriter("exam03.txt");) {
 
@@ -64,7 +64,7 @@ public void fileSave() {
 		+ write(String str) : 문자열을 저장한다.
 		+ write(String str, int off, int len) : 문자열의 인덱스 범위만큼 저장한다. **마지막 범위는 항상 포함하지 않는다.**
 	
-```
+```JAVA
 public void fileSave() {
 		try (FileWriter fr = new FileWriter("exam03.txt");) {
 			char[] ch = { 'a', 'b', 'c', 'd', 'e' };
@@ -125,7 +125,7 @@ public void fileSave() {
 	
 ### FileWriter // // 파일을 받아(읽어)오자.
 	
-```
+```JAVA
 public void fileOpen() {
 		FileReader fr = new FileReader("exam03.txt");
 	}
@@ -136,7 +136,7 @@ public void fileOpen() {
 	+ IO를 사용하기 위해서 **예외처리**를 해준다
 	+ FileReader 코드를 살펴보고 어떤 예외처리를 던지는지 확인해보자.
 	
-```
+```JAVA
 public FileReader(String fileName) throws FileNotFoundException
 ```
 
@@ -144,7 +144,7 @@ public FileReader(String fileName) throws FileNotFoundException
 	+ throws FileNotFoundException 예외처리를 해주자
 	+ 또한 try-with-resource문으로 작성해보자.
 	
-```
+```JAVA
 public void fileOpen() {
 		try (FileReader fr = new FileReader("exam03.txt");){
 
@@ -187,7 +187,7 @@ public void fileOpen() {
 	+ read() 메소드는 int 값을 반환하는 것을 알 수 있다.
 	+ 읽어온 값을 담아줄 value 값을 만들어주자
 	
-```
+```JAVA
 public void fileOpen() {
 		try (FileReader fr = new FileReader("exam03.txt");){
 			int value = 0;
@@ -204,7 +204,7 @@ public void fileOpen() {
 +
 	+ 값을 읽어와보자
 
-```
+```JAVA
 public void fileOpen() {
 		try (FileReader fr = new FileReader("exam03.txt");) {
 			int value = 0;

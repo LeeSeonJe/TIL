@@ -46,7 +46,7 @@ public void fileSave() {
 
 +
 	+ API - FileWriter - Constructors 부분을 보면 **FileWriter(File file, boolean append)** 뒤에 boolean append가 붙은 Constructors를 확인할 수 있다.
-	+ **FileOutputStream 과 같이 자동으로 덮어쓰는 것을 하지 않고 이어서 쓸 수 있게 해주는 Constructors이다.
+	+ **FileOutputStream** 과 같이 자동으로 덮어쓰는 것을 하지 않고 이어서 쓸 수 있게 해주는 Constructors이다.
 
 >
 

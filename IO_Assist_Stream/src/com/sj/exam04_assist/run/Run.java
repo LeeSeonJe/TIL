@@ -7,5 +7,9 @@ public class Run {
 		AssistDAO bd = new AssistDAO();
 		bd.byteStringSave();
 		bd.byteStringOpen();
+		bd.bufferedSave();
+		bd.bufferedOpen();
+		bd.dataStreamSave();
+		bd.dataStreamOpen();
 	}
 }

@@ -180,10 +180,11 @@
 
 +
 	+ 입출력의 성능향상을 위해 보조스트림을 사용해 파일을 출력해보자.
+	+ 버퍼안에 문자들을 임시로 저장했다가 한번에 입출력 해온다.
 	+ BufferedOutputStream도 사용할 수 있으나 우리는 문자열을 출력하기 위해서 writer을 사용해보자
 	+ BufferedOutputStream을 사용하여 파일을 출력해보자.
 	
-```
+```JAVA
 	public void bufferedSave() {
 		FileWriter fw = new FileWriter("buffered.txt");
 		BufferedWriter bw = new BufferedWriter(fw);
@@ -194,7 +195,7 @@
 +
 	+ try-with-resource문을 사용하고 예외처리를 모두 해주자.
 	
-```
+```JAVA
 	public void bufferedSave() {
 		FileWriter fw;
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter("buffered.txt"));) {
@@ -207,6 +208,216 @@
 ```
 	
 + 
-	+ 파일을 출력하기 위해 write()를 사용한다
+	+ 파일을 출력하기 위해 write()를 사용한다.
 	+ API를 보면 BufferedOutputStream은 String을 매개변수로 하는 write()가 존재하지 않는다.
-	+ 
+	+ 문자열을 출력해보자.
+	
+```JAVA
+	public void bufferedSave() {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter("buffered.txt"));) {
+			bw.write("안녕하세요");
+			bw.write("반갑습니다");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+```
+
++
+	+ 프로젝트를 새로고침하면 buffered.txt가 생성되었다.
+	+ 안에 값을 확인해보자. 잘 만들어졌다.
+	
+> ## BufferedReader
+
++
+	+ 이제 저장을 했으니 값을 읽어와 보자.
+	+ **BufferReader**을 사용해서 파일을 읽어보자.
+	
+```JAVA
+	public void bufferedOpen() {
+		FileReader fr = new FileReader("buffered.txt");
+		BufferedReader br = new BufferedReader(fr);
+	}
+```
+
++
+	+ try-with-resource문을 사용하고 예외처리를 모두 해주자.
+
+```JAVA
+	public void bufferedOpen() {
+		try (BufferedReader br = new BufferedReader(new FileReader("buffered.txt"));) {
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+```
+
++
+	+ 이제 파일을 하나하나 읽어보자.
+	+ 파일을 읽어오는건 **readLine()**을 사용한다.
+	+ BufferedReader는 값을 읽어올때 **한줄씩** 가져올 수 있다.
+	+ 항상 read()를 통해서 하나하나 문자나 바이트 단위로 가져왔었는데 성능향상을 받은 것을 알 수 있다.
+	
+```JAVA
+	public void bufferedOpen() {
+		try (BufferedReader br = new BufferedReader(new FileReader("buffered.txt"));) {
+			String str = null;
+			while ((str = br.readLine()) != null) {
+				System.out.println(str);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+```
+
++
+	+ **readLine()**을 API 살펴보자.
+		+ 반환값은 **String**이다.
+		+ 파일의 끝에 도달할 경우에는 null을 반환한다.
+	+ 읽어오는 것은 항상 **일회성**이므로 저장할 변수를 항상 생성해주자.
+	+ 실행시켜보자. 잘 출력이 되었다.
+	
+### 기본타입 입출력 보조스트림
+> ## DataOutputStream
+
++
+	+ 바이트 스트림으로 전송할 수 없는 타입(int, long, float, double, short, String, boolean등)들을 전송하기위한 보조스트림이다.
+	+ 자바의 기본타입을 살려서 생성할 수 있다.
+	+ 보안상에 유리하다는 장점이 있다.
+	+ DataOutputStream을 보조스트림을 사용하여 출력해보도록 하자.
+	
+```JAVA
+	public void dataStreamSave() {
+		FileOutputStream fos = new FileOutputStream("data.txt");
+		DataOutputStream dos = new DataOutputStream(fos);
+	}
+```
+
++
+	+ try-with-resource문을 사용하고 예외처리를 모두 해주자.
+
+```JAVA
+	public void dataStreamSave() {
+		try (DataOutputStream dos = new DataOutputStream(new FileOutputStream("data.txt"));) {
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}	
+```
+
++
+	+ API를 살펴보자. 여러가지 write()메소드들이 존재한다
+		+ write(byte[] b, int off, int len)
+		+ write(int b) 
+		+ writeBoolean(boolean v)
+		+ writeByte(int v)
+		+ writeBytes(String s)
+		+ writeChar(int v)
+		+ writeChars(String s)
+		+ writeDouble(double v)
+		+ writeFloat(float v)
+		+ writeInt(int v)
+		+ writeLong(long v)
+		+ writeShort(int v)
+		+ writeUTF(String str)
+	+ 다양하게 기본타입으로 출력시킬 수 있다. writeUTF는 처음보는 부분이라 찾아봤다.
+	+ Writes a string to the underlying output stream using modified UTF-8 encoding in a machine-independent manner.
+	+ UTF-8 인코딩을 사용하여 기본 출력 스트림에 문자열로 사용된다고 한다.
+	+ 사용해보자.
+
+```JAVA
+	public void dataStreamSave() {
+		try (DataOutputStream dos = new DataOutputStream(new FileOutputStream("data.txt"));) {
+			dos.writeUTF("이선제");
+			dos.writeDouble(93.8);
+			dos.writeBoolean(true);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+```
+
++
+	+ writeXXX()를 사용해서 값을 저장해 주었다.
+	+ 파일을 확인하였는데 저장된 값이 조금 이상하다.
+	+ 파일을 읽어봐야할거 같다. 이제 파일을 읽어보자.
+	
+
+> ## DataIntputStream
+
++
+	+ 파일을 읽어보자. 
+	+ **주의할 점**이 있다.
+	+ 파일을 읽어올때 **순서대로** 읽어와야 한다.
+	+ 우선 **DataInputStream** 보조스트림을 생성해보자
+	
+```JAVA
+	public void dataStreamOpen() {
+		FileInputStream fis = new FileInputStream("data.txt");
+		DataInputStream dis = new DataInputStream(fis);
+	}
+```
++
+	+ try-with-resource문을 사용하고 예외처리를 모두 해주자.
+	
+```JAVA
+	public void dataStreamOpen() {
+		try (DataInputStream dis = new DataInputStream(new FileInputStream("data.txt"));) {
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+```
+
++
+	+ 아까 **주의할 점**을 생각하며 파일을 읽어보자.
+	
+```JAVA
+	public void dataStreamOpen() {
+		try (DataInputStream dis = new DataInputStream(new FileInputStream("data.txt"));) {
+			String name = dis.readUTF();
+			double score = dis.readDouble();
+			boolean check = dis.readBoolean();
+
+			System.out.println(name);
+			System.out.println(score);
+			if (check) {
+				System.out.println("통과!");
+			} else {
+				System.out.println("탈락!");
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+```
+

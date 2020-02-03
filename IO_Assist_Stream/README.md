@@ -594,3 +594,129 @@ public class Book implements Serializable {
 		}
 	}
 ```
+
++
+	+ 실행시켜보자. object.dat파일이 생성되었을 것이다. 안에 내용을 살펴보자. 외계어가 써있다.
+	+ 이제 다시 읽어보자!
+	
+> ## ObjectInputStream
+
++
+	+ 객체를 입력받기 위한 보조스트림을 생성해준다.
+	+ ObjectInputStream을 사용해서 만들어주자.
+	+ 예외처리까지 해주자. 다 해주자....
+
+```JAVA
+	public void objectStreamOpen() {
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("object.dat"));) {
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+```
+
++
+	+ 이제는 아주 쉽고 빠르게 만들 수 있다. ㅎㅎ
+	+ 이제 object.dat파일을 읽어보자
+	+ 읽어오는 메소드 readObject()를 사용해보자. 그전에 API를 살펴보자.
+	+ 여러가지 read()메소드가 있다. 우리는 객체를 받아올 것이기 떄문에 readObject()를 사용하면 될 것 같다. 반환값은 object이다.
+
+>
+
++ 읽어오는 방법은 여러가지가 있다.
++ 내가 아는 선에서 모두 구현해보자.
+	+ 1\. 크기를 알고 있다면 객체배열을 생성해서 저장해서 읽어온다.
+		
+```JAVA
+	public void objectStreamOpen() {
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("object.dat"));) {
+			Book[] bArr = new Book[5];
+			for (int i = 0; i < bArr.length; i++) {
+				bArr[i] = (Book) ois.readObject();
+			}			
+			for (Book b : bArr) {
+				System.out.println(b);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+```
+
++
+	+ 2\. EOFException을 사용해서 읽어온다.
+
+```JAVA
+	public void objectStreamOpen() {
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("object.dat"));) {
+			while (true) {
+				try {
+					Book b = (Book) ois.readObject();
+					System.out.println(b);
+				} catch (EOFException e) {
+					// 파일에 다음 값이 없으면 뱉는 오류이다.
+					break;
+				}
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+```
+
++
+	+ 3\. 크기를 모를 경우 컬렉션을 사용해서 읽어온다. 이 부분에도 EOFException을 함께 사용해준다.
+	
+```JAVA
+	public void objectStreamOpen() {
+		ArrayList<Book> list = new ArrayList<Book>();
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("object.dat"));) {
+			while (true) {
+				list.add((Book) ois.readObject());
+			}
+		} catch (EOFException e) {
+			for (Book b : list) {
+				System.out.println(b);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+```
+
++
+	+ 이렇게 여러가지 방법을 통해서 파일을 읽어왔다.
+	+ 객체를 입출력 해줄때는 객체를 정의한 클래스에 꼭 **직렬화**를 하는 인터페이스를 추가해주어야한다.
+	+ **EOFException은 객체 파일을 읽어올때 다음 값이 없으면 뱉는 오류라는 것을 잘 기억해두자.**
+	+ 실행해보니 object.dat파일에는 알 수 없는 값들이 저장 되어 있엇는데 읽어오니 아주 잘 출력되는 것을 확인하였다.
+	+ 다음에는 컬렉션을 공부해볼까한다. ㅎㅎ
+
+
+	
+	

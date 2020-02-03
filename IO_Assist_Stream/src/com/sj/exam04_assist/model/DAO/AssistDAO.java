@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -11,8 +12,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 import com.sj.exam04_assist.model.vo.Book;
 
@@ -123,6 +126,41 @@ public class AssistDAO {
 	}
 
 	public void objectStreamOpen() {
-
+		ArrayList<Book> list = new ArrayList<Book>();
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("object.dat"));) {
+			while (true) {
+				list.add((Book) ois.readObject());
+			}
+		} catch (EOFException e) {
+			for (Book b : list) {
+				System.out.println(b);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
+
+//while (true) {
+//try {
+//	Book b = (Book) ois.readObject();
+//	System.out.println(b);
+//} catch (EOFException e) {
+//	break;
+//}
+//}
+
+//Book[] bArr = new Book[5];
+//for (int i = 0; i < bArr.length; i++) {
+//	bArr[i] = (Book) ois.readObject();
+//}			
+//for (Book b : bArr) {
+//	System.out.println(b);
+//}

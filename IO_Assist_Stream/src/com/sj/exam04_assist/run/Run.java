@@ -11,5 +11,7 @@ public class Run {
 		bd.bufferedOpen();
 		bd.dataStreamSave();
 		bd.dataStreamOpen();
+		bd.objectStreamSave();
+		bd.objectStreamOpen();
 	}
 }

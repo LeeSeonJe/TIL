@@ -122,3 +122,6 @@ public void fileSave() {
 		+ 한글을 사랑하자::: 부분 : write(String str)
 	+ 아주 잘 생성이 되었다. **다음은 파일을 읽어오자**
 	
+	
+### FileWriter // // 파일을 받아(읽어)오자.
+	

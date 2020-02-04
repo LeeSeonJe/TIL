@@ -717,6 +717,7 @@ public class Book implements Serializable {
 	+ 실행해보니 object.dat파일에는 알 수 없는 값들이 저장 되어 있엇는데 읽어오니 아주 잘 출력되는 것을 확인하였다.
 	+ 다음에는 컬렉션을 공부해볼까한다. ㅎㅎ
 
-
++
+	+ update Test
 	
 	

@@ -22,6 +22,18 @@ public class MapController {
 		Iterator<Entry<Integer, String>> s2 = s.iterator();
 		
 		Entry<Integer, String> e = s2.next();
-		System.out.println(s);
+		System.out.println(e);
+	}
+	
+	public void test() {
+		Map<Integer, Person> m = new HashMap<Integer, Person>();
+		m.put(1, new Person(1,"LCJ"));
+		
+		System.out.println(m.values());
+		
+		Set<Entry<Integer, Person>> s = m.entrySet();
+		Iterator<Entry<Integer, Person>> s1 = s.iterator();
+		
+		
 	}
 }

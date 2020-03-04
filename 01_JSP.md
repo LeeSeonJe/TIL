@@ -49,3 +49,14 @@ http://wwww.sba.seoul.kr:80/kr/index
   (hello.jsp -> hello_jsp.java -> hello_jsp.class)
   
 ![image](https://user-images.githubusercontent.com/59919620/75904338-5dc45d00-5e86-11ea-8076-c74c0523160f.png)
+
+<br>
+
+# Servlet
++ 특정 웹어플리케이션 컴포넌트
++ .java 확장자
++ 클라이언트의 요청에 동적으로 작동하고, 응답은 html 이용
++ java thread 이용하여 동작 (사용하는 이유)
++ MVC패턴에서 Contorller로 이용
+
+

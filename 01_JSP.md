@@ -41,3 +41,11 @@ http://wwww.sba.seoul.kr:80/kr/index
 + MVC패턴에서 View로 이용
 
 ![JSP동작](https://user-images.githubusercontent.com/59919620/75901661-38355480-5e82-11ea-954e-5f760b37cd0d.JPG)
+
+<br>
+
+### JSP 아키텍쳐
++ jsp file -> java file -> class file  
+  (hello.jsp -> hello_jsp.java -> hello_jsp.class)
+  
+![image](https://user-images.githubusercontent.com/59919620/75904338-5dc45d00-5e86-11ea-8076-c74c0523160f.png)

@@ -59,4 +59,6 @@ http://wwww.sba.seoul.kr:80/kr/index
 + java thread 이용하여 동작 (사용하는 이유)
 + MVC패턴에서 Contorller로 이용
 
+### web.xml 서블릿 매핑
++ 사용이유 : 주소가 너무 길어지고, 보안에 노출되어 있는 경로를 간단하게 매핑하는 것이다.
 
